@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>temepature converter</title>
+    <title>Temperature Converter</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url('new.jpg');
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+        }
+
+        #converter-container {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        input[type="text"] {
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            width: 200px;
+        }
+        input[type="text"]:focus {
+            outline: none;
+            border-color: dodgerblue;
+        }
+        input[type="text"]::placeholder {
+            color: #999;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            background-color: dodgerblue;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #1e90ff;
+        }
+        button:active {
+            background-color: #0d47a1;
+        }
+    </style>
+    <script>
+        function celsiusToFahrenheit(celsius) {
+            return (celsius * 9/5) + 32;
+        }
+
+        function fahrenheitToCelsius(fahrenheit) {
+            return (fahrenheit - 32) * 5/9;
+        }
+
+        function celsiusToKelvin(celsius) {
+            return celsius + 273.15;
+        }
+
+        function kelvinToCelsius(kelvin) {
+            return kelvin - 273.15;
+        }
+
+        function fahrenheitToKelvin(fahrenheit) {
+            var celsius = fahrenheitToCelsius(fahrenheit);
+            return celsiusToKelvin(celsius);
+        }
+
+        function kelvinToFahrenheit(kelvin) {
+            var celsius = kelvinToCelsius(kelvin);
+            return celsiusToFahrenheit(celsius);
+        }
+
+        function convertTemperature() {
+            var fromUnit = document.getElementById("fromUnit").value;
+            var toUnit = document.getElementById("toUnit").value;
+            var temperature = parseFloat(document.getElementById("temperature").value);
+            var result;
+
+            switch (fromUnit) {
+                case "Celsius":
+                    switch (toUnit) {
+                        case "Fahrenheit":
+                            result = celsiusToFahrenheit(temperature);
+                            break;
+                        case "Kelvin":
+                            result = celsiusToKelvin(temperature);
+                            break;
+                        default:
+                            result = temperature;
+                    }
+                    break;
+                case "Fahrenheit":
+                    switch (toUnit) {
+                        case "Celsius":
+                            result = fahrenheitToCelsius(temperature);
+                            break;
+                        case "Kelvin":
+                            result = fahrenheitToKelvin(temperature);
+                            break;
+                        default:
+                            result = temperature;
+                    }
+                    break;
+                case "Kelvin":
+                    switch (toUnit) {
+                        case "Celsius":
+                            result = kelvinToCelsius(temperature);
+                            break;
+                        case "Fahrenheit":
+                            result = kelvinToFahrenheit(temperature);
+                            break;
+                        default:
+                            result = temperature;
+                    }
+                    break;
+                default:
+                    result = temperature;
+            }
+
+            document.getElementById("result").innerHTML = result.toFixed(2);
+        }
+    </script>
+</head>
+<body>
+    <div id="converter-container">
+        <h1>Temperature Converter</h1>
+        <label for="fromUnit">From:</label>
+        <select id="fromUnit">
+            <option value="Celsius">Celsius</option>
+            <option value="Fahrenheit">Fahrenheit</option>
+            <option value="Kelvin">Kelvin</option>
+        </select>
+        <br>
+        <label for="toUnit">To:</label>
+        <select id="toUnit">
+            <option value="Celsius">Celsius</option>
+            <option value="Fahrenheit">Fahrenheit</option>
+            <option value="Kelvin">Kelvin</option>
+        </select>
+        <br>
+        <label for="temperature">Temperature:</label>
+        <input type="text" id="temperature" placeholder="Enter temperature">
+        <button onclick="convertTemperature()">Convert</button>
+        <br>
+        <div id="result"></div>
+    </div>
+    
+</body>
+</html>
